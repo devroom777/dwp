@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ใบอนุญาตทำงานดิจิทัล</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    .card h2 {
+      margin-top: 0;
+      color: #0f172a;
+    }
+    .info {
+      margin: 8px 0;
+    }
+    .status {
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>ใบอนุญาตทำงานดิจิทัล</h2>
+    <div class="info" id="permitId">เลขที่ใบอนุญาต: -</div>
+    <div class="info" id="owner">ชื่อเจ้าของ: -</div>
+    <div class="info" id="issuedDate">วันที่ออกใบอนุญาต: -</div>
+    <div class="info status" id="status">สถานะ: -</div>
+  </div>
+
+  <script>
+    const mockDatabase = {
+      "123456": {
+        permitId: "123456",
+        owner: "นายสมชาย ใจดี",
+        issuedDate: "3 มิ.ย. 2025",
+        status: "✔️ ถูกต้อง"
+      },
+      "654321": {
+        permitId: "654321",
+        owner: "นางสาวจันทรา ใจงาม",
+        issuedDate: "1 เม.ย. 2025",
+        status: "✔️ ถูกต้อง"
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    const data = mockDatabase[id];
+
+    if (data) {
+      document.getElementById("permitId").textContent = `เลขที่ใบอนุญาต: ${data.permitId}`;
+      document.getElementById("owner").textContent = `ชื่อเจ้าของ: ${data.owner}`;
+      document.getElementById("issuedDate").textContent = `วันที่ออกใบอนุญาต: ${data.issuedDate}`;
+      document.getElementById("status").textContent = `สถานะ: ${data.status}`;
+    } else {
+      document.querySelector(".card").innerHTML = `<h2>ไม่พบข้อมูล</h2><p>ไม่พบใบอนุญาตเลขที่ ${id}</p>`;
+    }
+  </script>
+</body>
+</html>
